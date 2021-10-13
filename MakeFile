@@ -1,0 +1,8 @@
+main : ShockLevel.o main.o
+	gcc -o main ShockLevel.o main.o -lm
+
+main.o : ./src/main.c
+	gcc -c ./src/main.c -lm
+
+ShockLevel.o : ./src/ShockLevel.h ./src/ShockLevel.c
+	gcc -c ./src/ShockLevel.c -lm
