@@ -9,7 +9,9 @@ make -f MakeFile
 
 ## Input_Data
 
--   입력 데이터 구조
+-   충격량 측정을 위한 입력 데이터 구조
+-   충격량, 충격 방향, 시설물의 기울기를 측정하기 위해 9축 센서의 각 x, y, z 값을 입력으로 받는다.
+-   이 때, z축은 중력 가속도로부터 수직인 것을 기준으로 한다. 따라서, z축의 가속도 데이터는 시설물에 아무 충격이 가해지지 않을 때 9.8의 값이 측정된다.
 
 ```c
 typedef struct Input_Data_struct {
@@ -27,7 +29,11 @@ typedef struct Input_Data_struct {
 
 ## Output_Data
 
--   출력 데이터 구조
+-   충격량 측정 결과로 출력되는 데이터 구조
+-   shockLevel (0: 충격 없음, 1: 약한 충격, 2: 강한 충격)
+-   shockDirection (0: 충격 없음, 1: 좌측 충격, 2: 우측 충격, 3: 하측 충격, 4: 상측 충격)
+-   code (1: 정상 출력, -1: 비정상 출력)
+-   message (함수 API 실행 메시지)
 
 ```c
 typedef enum Shock_struct {
@@ -50,11 +56,19 @@ typedef struct Output_Data_struct {
 
 ## 함수 API
 
--
+-   실제 충격감지 알고리즘을 이용하는 예제
+-   ./src/main.c에 구현되어 있으며, 이를 통하여 1초마다 함수 API를 호출하고 충격 측정 결과를 반환한다.
 
 ```c
 Output_Data* getShockLevel(int reqID, Input_Data* data);
 ```
+
+## 예제 코드 실행 결과
+
+-   예제 코드 실행 결과 로그 출력
+-   순서대로 함수 API 호출 횟수, 정상 출력 여부, 메시지, 충격량 레벨, 충격 방향, 충격량, 그리고 시설물의 기울기를 의미한다.
+
+![Feature 7](https://kihyeon-hong.github.io/Collection_of_repository_images/ShockLevel_test_code/feature7.jpg)
 
 # 알고리즘 개요
 
