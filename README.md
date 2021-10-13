@@ -1,26 +1,62 @@
-# 지능형 충격감지 알고리즘
-
-## Compile
-
--   windows
+# Compile
 
 ```bash
-gcc -o main ./src/main.c ./src/ShockLevel.c ./src/ShockLevel.h
-main
-```
-
--   Linux
-
-```bash
-gcc -o main ./src/main.c ./src/ShockLevel.c ./src/ShockLevel.h -lm
+make -f MakeFile
 ./main
 ```
 
+# Data strcuture
+
 ## Input_Data
+
+-   입력 데이터 구조
+
+```c
+typedef struct Input_Data_struct {
+    float acc_x;
+    float acc_y;
+    float acc_z;
+    float vel_x;
+    float vel_y;
+    float vel_z;
+    float mag_x;
+    float mag_y;
+    float mag_z;
+} Input_Data;
+```
 
 ## Output_Data
 
-## 지능형 충격감지 알고리즘 개요
+-   출력 데이터 구조
+
+```c
+typedef enum Shock_struct {
+    NoShock = 0,
+    WeekShock = 1,
+    StrongShock = 2
+} ShockLevel;
+
+typedef struct Output_Data_struct {
+    int reqID;
+    ShockLevel shocklevel;
+    int shockDirection;
+    float shockValue;
+    float degree;
+    int code;
+    char* message;
+
+} Output_Data;
+```
+
+## 함수 API
+
+-
+
+```c
+Output_Data* getShockLevel(int reqID, Input_Data* data);
+```
+
+# 알고리즘 개요
 
 -   지능형 충격감지 알고리즘은 9축 센서로부터 받은 raw 데이터를 입력받아 시설물에 가해진 충격 강도, 충격 값, 그리고 충격 방향 등을 산출하여 리턴하는 알고리즘
 -   1개의 센서가 아닌 다중 센서로부터 받은 데이터를 융합하여 통합적으로 처리하는 알고리즘을 개발

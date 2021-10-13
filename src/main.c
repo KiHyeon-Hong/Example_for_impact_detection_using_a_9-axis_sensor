@@ -3,11 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include <Windows.h>
-/*
 #include <unistd.h>
-*/
+
 #include "ShockLevel.h"
 
 /*
@@ -77,6 +74,8 @@ int main(void) {
     for(i = 0; i < (int)(6000 / 10) - 1; i++) {
         Input_Data* inputData = (Input_Data *)malloc(sizeof(Input_Data) * bufferSize);
 
+        sleep(1);
+        
         /*
         * 1초에 20개의 데이터 입력
         */
@@ -89,13 +88,7 @@ int main(void) {
         * 지능형 충격감지 알고리즘 호출
         */
         Output_Data* returnLevel = getShockLevel(i, inputData);
-
         
-        Sleep(100);
-        /*
-        sleep(1);
-        */
-
         printf("%3d\t", returnLevel->reqID);
         printf("%3d\t", returnLevel->code);
         printf("%15s\t", returnLevel->message);
